@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Continent-Country Dropdown</title>
+</head>
+<body>
+  <h2>Select Continent and Country</h2>
+  <label>Continent:
+    <select id="continentSelect">
+      <option value="">--Select--</option>
+      <option value="asia">Asia</option>
+      <option value="europe">Europe</option>
+      <option value="america">America</option>
+    </select>
+  </label><br><br>
+
+  <label>Country:
+    <select id="countrySelect">
+      <option value="">--Select continent first--</option>
+    </select>
+  </label>
+
+  <script>
+    const continentSelect = document.getElementById('continentSelect');
+    const countrySelect = document.getElementById('countrySelect');
+
+    const continentCountryMap = {
+      asia: ['India', 'China', 'Japan'],
+      europe: ['France', 'Germany', 'Italy'],
+      america: ['USA', 'Canada', 'Mexico']
+    };
+
+    continentSelect.addEventListener('change', () => {
+      const continent = continentSelect.value;
+      countrySelect.innerHTML = '';
+      if (continent && continentCountryMap[continent]) {
+        continentCountryMap[continent].forEach(country => {
+          const option = document.createElement('option');
+          option.value = country.toLowerCase();
+          option.textContent = country;
+          countrySelect.appendChild(option);
+        });
+      } else {
+        const option = document.createElement('option');
+        option.textContent = '--Select continent first--';
+        countrySelect.appendChild(option);
+      }
+    });
+  </script>
+</body>
+</html>

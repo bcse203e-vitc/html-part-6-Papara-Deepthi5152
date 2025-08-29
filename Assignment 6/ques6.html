@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Username Validation</title>
+  <style>
+    .error { color: red; }
+  </style>
+</head>
+<body>
+  <h2>Username Validation</h2>
+  <form id="userForm" novalidate>
+    <label>Username: <input type="text" id="username"></label><br>
+    <span id="userErr" class="error"></span><br>
+    <button type="submit">Submit</button>
+  </form>
+
+  <script>
+    const usernameInput = document.getElementById('username');
+    const userErr = document.getElementById('userErr');
+    const userForm = document.getElementById('userForm');
+
+    const usernameRegex = /^[a-zA-Z0-9_]{3,16}$/;
+
+    usernameInput.addEventListener('input', () => {
+      if (usernameRegex.test(usernameInput.value)) {
+        userErr.textContent = '';
+      } else {
+        userErr.textContent = 'Username must be 3-16 chars, letters, numbers or underscore only';
+      }
+    });
+
+    userForm.addEventListener('submit', e => {
+      if (!usernameRegex.test(usernameInput.value)) {
+        e.preventDefault();
+        userErr.textContent = 'Invalid username. Please fix before submitting.';
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Phone Validation</title>
+  <style>
+    .error { color: red; }
+    .valid { color: green; }
+  </style>
+</head>
+<body>
+  <h2>Phone Number Validation</h2>
+  <form novalidate>
+    <label>Phone: <input type="text" id="phone"></label><br>
+    <div id="phoneMsg"></div>
+  </form>
+
+  <script>
+    const phoneInput = document.getElementById('phone');
+    const phoneMsg = document.getElementById('phoneMsg');
+    const phoneRegex = /^(\(\d{3}\)\s|\d{3}-)\d{3}-\d{4}$/;
+    phoneInput.addEventListener('input', () => {
+      const val = phoneInput.value.trim();
+      if (phoneRegex.test(val)) {
+        phoneMsg.textContent = 'Valid phone number';
+        phoneMsg.className = 'valid';
+      } else {
+        phoneMsg.textContent = 'Invalid phone number format';
+        phoneMsg.className = 'error';
+      }
+    });
+  </script>
+</body>
+</html>

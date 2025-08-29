@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Date Validation</title>
+</head>
+<body>
+  <h2>Date Format Validation</h2>
+  <form id="dateForm" novalidate>
+    <label>Date (DD/MM/YYYY): <input type="text" id="date"></label><br>
+    <button type="submit">Submit</button>
+  </form>
+
+  <script>
+    const dateInput = document.getElementById('date');
+    const dateForm = document.getElementById('dateForm');
+    const dateRegex = /^\d{2}\/\d{2}\/\d{4}$/;
+
+    dateForm.addEventListener('submit', e => {
+      if (!dateRegex.test(dateInput.value.trim())) {
+        e.preventDefault();
+        alert('Date must be in DD/MM/YYYY format.');
+      }
+    });
+  </script>
+</body>
+</html>

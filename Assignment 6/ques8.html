@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Hex Color Validation</title>
+  <style>
+    #colorPreview {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      margin-left: 10px;
+      vertical-align: middle;
+      border: 1px solid #000;
+    }
+  </style>
+</head>
+<body>
+  <h2>Hex Color Code Validation</h2>
+  <label>Color Code: <input type="text" id="colorInput" placeholder="#FFF or #FFFFFF"></label>
+  <div id="colorPreview"></div>
+
+  <script>
+    const colorInput = document.getElementById('colorInput');
+    const preview = document.getElementById('colorPreview');
+    const hexRegex = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
+
+    colorInput.addEventListener('input', () => {
+      const val = colorInput.value.trim();
+      if (hexRegex.test(val)) {
+        preview.style.backgroundColor = val;
+      } else {
+        preview.style.backgroundColor = 'transparent';
+      }
+    });
+  </script>
+</body>
+</html>

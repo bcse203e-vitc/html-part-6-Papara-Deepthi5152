@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dynamic Hobbies</title>
+  <style>
+    .error { color: red; }
+  </style>
+</head>
+<body>
+  <h2>Hobbies</h2>
+  <form id="hobbyForm" novalidate>
+    <div id="hobbyContainer">
+      <input type="text" class="hobby" placeholder="Enter hobby">
+      <span class="error"></span><br>
+    </div>
+    <button type="button" id="addHobbyBtn">Add Hobby</button>
+  </form>
+
+  <script>
+    const hobbyContainer = document.getElementById('hobbyContainer');
+    const addHobbyBtn = document.getElementById('addHobbyBtn');
+
+    const hobbyRegex = /^[A-Za-z\s]+$/;
+
+    function validateHobby(input, errorSpan) {
+      if (input.value.trim() === '') {
+        errorSpan.textContent = '';
+        return true; // empty allowed initially
+      }
+      if (!hobbyRegex.test(input.value.trim())) {
+        errorSpan.textContent = 'Only alphabets allowed';
+        return false;
+      }
+      errorSpan.textContent = '';
+      return true;
+    }
+
+    function addHobbyField() {
+      const div = document.createElement('div');
+      const input = document.createElement('input');
+      input.type = 'text';
+      input.className = 'hobby';
+      input.placeholder = 'Enter hobby';
+      const errorSpan = document.createElement('span');
+      errorSpan.className = 'error';
+
+      div.appendChild(input);
+      div.appendChild(errorSpan);
+      div.appendChild(document.createElement('br'));
+      hobbyContainer.appendChild(div);
+
+      input.addEventListener('input', () => validateHobby(input, errorSpan));
+    }
+
+    addHobbyBtn.addEventListener('click', addHobbyField);
+
+    // Initial validation for existing input
+    document.querySelectorAll('.hobby').forEach(input => {
+      const errorSpan = input.nextElementSibling;
+      input.addEventListener('input', () => validateHobby(input, errorSpan));
+    });
+  </script>
+</body>
+</html>

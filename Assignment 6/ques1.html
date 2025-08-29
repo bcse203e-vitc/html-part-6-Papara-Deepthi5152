@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Registration Form</title>
+  <style>
+    .error { color: red; font-size: 0.9em; }
+  </style>
+</head>
+<body>
+  <h2>Registration Form</h2>
+  <form id="regForm" novalidate>
+    <label>Name: <input type="text" id="name"></label><br><span id="nameErr" class="error"></span><br>
+    <label>Email: <input type="email" id="email"></label><br><span id="emailErr" class="error"></span><br>
+    <label>Password: <input type="password" id="password"></label><br><span id="passErr" class="error"></span><br>
+    <button type="submit" id="submitBtn" disabled>Submit</button>
+  </form>
+
+  <script>
+    const nameInput = document.getElementById('name');
+    const emailInput = document.getElementById('email');
+    const passInput = document.getElementById('password');
+    const submitBtn = document.getElementById('submitBtn');
+
+    const nameErr = document.getElementById('nameErr');
+    const emailErr = document.getElementById('emailErr');
+    const passErr = document.getElementById('passErr');
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const passRegex = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
+
+    function validateName() {
+      if (nameInput.value.trim() === '') {
+        nameErr.textContent = 'Name cannot be empty';
+        return false;
+      }
+      nameErr.textContent = '';
+      return true;
+    }
+
+    function validateEmail() {
+      if (!emailRegex.test(emailInput.value.trim())) {
+        emailErr.textContent = 'Invalid email format';
+        return false;
+      }
+      emailErr.textContent = '';
+      return true;
+    }
+
+    function validatePassword() {
+      if (!passRegex.test(passInput.value)) {
+        passErr.textContent = 'Password must be 8+ chars, include 1 uppercase & 1 number';
+        return false;
+      }
+      passErr.textContent = '';
+      return true;
+    }
+
+    function validateForm() {
+      const valid = validateName() && validateEmail() && validatePassword();
+      submitBtn.disabled = !valid;
+    }
+
+    nameInput.addEventListener('blur', () => { validateName(); validateForm(); });
+    emailInput.addEventListener('blur', () => { validateEmail(); validateForm(); });
+    passInput.addEventListener('blur', () => { validatePassword(); validateForm(); });
+
+    
+    [nameInput, emailInput, passInput].forEach(input => input.addEventListener('input', validateForm));
+
+    document.getElementById('regForm').addEventListener('submit', e => {
+      e.preventDefault();
+      if (validateName() && validateEmail() && validatePassword()) {
+        alert('Form Submitted Successfully!');
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Password Match</title>
+  <style>
+    #message { font-weight: bold; }
+    .match { color: green; }
+    .no-match { color: red; }
+  </style>
+</head>
+<body>
+  <h2>Password Match</h2>
+  <form novalidate>
+    <label>Password: <input type="password" id="pass"></label><br>
+    <label>Confirm Password: <input type="password" id="confirmPass"></label><br>
+    <div id="message"></div>
+  </form>
+
+  <script>
+    const passInput = document.getElementById('pass');
+    const confirmInput = document.getElementById('confirmPass');
+    const message = document.getElementById('message');
+
+    function checkMatch() {
+      if (passInput.value === '' && confirmInput.value === '') {
+        message.textContent = '';
+        return;
+      }
+      if (passInput.value === confirmInput.value) {
+        message.textContent = 'Passwords match';
+        message.className = 'match';
+      } else {
+        message.textContent = 'Passwords do not match';
+        message.className = 'no-match';
+      }
+    }
+
+    passInput.addEventListener('input', checkMatch);
+    confirmInput.addEventListener('input', checkMatch);
+  </script>
+</body>
+</html>
